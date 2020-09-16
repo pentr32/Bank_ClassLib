@@ -8,10 +8,10 @@ public:
 	SavingsAccount(int accountNumber, std::string name) {
 		this->AccountNumber = accountNumber;
 		this->Name = name;
-		this->AccountType = AccountSavings;
+		this->AccountType = AccountType::AccountSavings;
 	}
 
-	void CalculateInterest() {
+	void CalculateInterest() override {
 
         double _balance = GetBalance();
         if (_balance > 100000) {

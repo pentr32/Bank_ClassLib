@@ -18,9 +18,6 @@
     <ClCompile Include="BankClassLib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IBank.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h">
@@ -48,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IBank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BankService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,6 +11,8 @@
 #include "SavingsAccount.h"
 #include "MoneyMarketAccount.h"
 
+// using namespace std; Den bliver en ambiguity og bagefter programmet den ved ikke på hvilken skal så peger.
+
 class Bank : public IBank {
 private:
 	int accountCounter;
@@ -27,22 +29,22 @@ public:
 	}
 	#pragma endregion
 
-	int CreateAccount(std::string name, AccountType type) {
+	int CreateAccount(std::string name, AccountType type) override {
 
 		switch (type) {
 
 			// Create a new CheckingAccount and add to accounts list.
-			case AccountChecking:
+			case AccountType::AccountChecking:
 				Accounts.push_back(CheckingAccount(++accountCounter, name));
 				break;
 
 			// Create a new SavingsAccount and add to accounts list.
-			case AccountSavings:
+			case AccountType::AccountSavings:
 				Accounts.push_back(SavingsAccount(++accountCounter, name));
 				break;
 				
 			// Create a new MoneyMarketAccount and add to accounts list.
-			case AccountMoneyMarket:
+			case AccountType::AccountMoneyMarket:
 				Accounts.push_back(MoneyMarketAccount(++accountCounter, name));
 				break;
 
@@ -52,7 +54,7 @@ public:
 		return accountCounter;
 	}
 
-	double InsertAmount(int accountNumber, double amount) {
+	double InsertAmount(int accountNumber, double amount) override {
 
 		// Find the specific account from the list by account number.
 		Account foundAccount;
@@ -61,13 +63,15 @@ public:
 		}
 
 		// Add the amount to the account that was found from the list.
-		foundAccount.Balance += amount;
+		double _balance = foundAccount.GetBalance();
+		_balance += amount;
+		foundAccount.SetBalance(_balance);
 
 		// Returns account's balance.
-		return foundAccount.Balance;
+		return foundAccount.GetBalance();
 	}
 
-	double WithdrawAmount(int accountNumber, double amount) {
+	double WithdrawAmount(int accountNumber, double amount) override {
 
 		// Find the specific account from the list by account number.
 		Account foundAccount;
@@ -76,13 +80,15 @@ public:
 		}
 
 		// Add the amount to the account that was found from the list.
-		foundAccount.Balance -= amount;
+		double _balance = foundAccount.GetBalance();
+		_balance -= amount;
+		foundAccount.SetBalance(_balance);
 
 		// Returns account's balance.
-		return foundAccount.Balance;
+		return foundAccount.GetBalance();
 	}
 
-	Account Balance(int accountNumber) {
+	Account Balance(int accountNumber) override {
 
 		// Find the specific account from the list by account number.
 		Account foundAccount;
@@ -94,22 +100,42 @@ public:
 		return foundAccount;
 	}
 
-	void InterestCalculating() {
+	void InterestCalculating() override {
 		
 		for (Account acc : Accounts) {
 			acc.CalculateInterest();
 		}
 	}
 
-	//std::list<AccountListItem> GetAccountList() {
+	std::list<AccountListItem> AccountLookUpList() override {
 
-	//	std::list<AccountListItem> accountList;
-	//	for (Account acc : Accounts) {
+		std::list<AccountListItem> accountList;
+		for (Account acc : Accounts) {
 
-	//		accountList.push_back(AccountListItem{
+			AccountListItem newAccountListItem;
+			newAccountListItem.SetAccountNumner(acc.AccountNumber);
+			newAccountListItem.SetName(acc.Name);
 
+			accountList.push_back(newAccountListItem);
+		}
 
-	//		});
-	//	}
-	//}
+		return accountList;
+	}
+
+	std::list<AccountListItem> GetAccountList() override {
+	
+		std::list<AccountListItem> accountList;
+		for (Account acc : Accounts) {
+
+			AccountListItem newAccountListItem;
+			newAccountListItem.SetAccountNumner(acc.AccountNumber);
+			newAccountListItem.SetName(acc.Name);
+			newAccountListItem.SetBalance(acc.GetBalance());
+			newAccountListItem.SetAccountType(acc.AccountType);
+
+			accountList.push_back(newAccountListItem);
+		}
+
+		return accountList;
+	}
 };

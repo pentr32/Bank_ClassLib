@@ -6,17 +6,27 @@
 #include "AccountTypeEnum.h"
 #include "AccountListItem.h"
 
-class IBank {
+struct IBank {
 public:
-	virtual int CreateAccount(std::string name, AccountType type);
+	std::string BankName;
+	double Inventory;
 
-	virtual double InsertAmount(int accountNumber, double amount);
+	std::string GetBankName() { return BankName; }
+	double GetInventory() { return Inventory; }
 
-	virtual double WithdrawAmount(int accountNumber, double amount);
+	virtual int CreateAccount(std::string name, AccountType type) = 0;
 
-	virtual Account Balance(int accountNumber);
+	virtual double InsertAmount(int accountNumber, double amount) = 0;
 
-	virtual void InterestCalculating();
+	virtual double WithdrawAmount(int accountNumber, double amount) = 0;
 
-	std::list<AccountListItem> GetAccountList();
+	virtual Account Balance(int accountNumber) = 0;
+
+	virtual void InterestCalculating() = 0;
+
+	virtual std::list<AccountListItem> AccountLookUpList() = 0;
+
+	virtual std::list<AccountListItem> GetAccountList() = 0;
+	
+	virtual ~IBank() = default;
 };

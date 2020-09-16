@@ -140,13 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BankClassLib.cpp" />
-    <ClCompile Include="IBank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
     <ClInclude Include="AccountListItem.h" />
     <ClInclude Include="AccountTypeEnum.h" />
     <ClInclude Include="Bank.h" />
+    <ClInclude Include="BankService.h" />
     <ClInclude Include="CheckingAccount.h" />
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="IBank.h" />

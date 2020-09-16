@@ -1,6 +1,6 @@
 #pragma once
 
-enum AccountType {
+enum class AccountType {
 
     // Used for daily expenses and bills.
     // Account holders can write checks for funds in the account.

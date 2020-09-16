@@ -8,10 +8,10 @@ public:
 	CheckingAccount(int accountNumber, std::string name) {
 		this->AccountNumber = accountNumber;
 		this->Name = name;
-		this->AccountType = AccountChecking;
+		this->AccountType = AccountType::AccountChecking;
 	}
 
-	void CalculateInterest() {
+	void CalculateInterest() override {
 
 		double _balance = GetBalance();
 		if (_balance > 0) {
