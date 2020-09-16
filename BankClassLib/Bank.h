@@ -34,7 +34,7 @@ public:
 		switch (type) {
 
 			// Create a new CheckingAccount and add to accounts list.
-			case AccountType::AccountChecking:
+		case AccountType::AccountChecking:
 				Accounts.push_back(CheckingAccount(++accountCounter, name));
 				break;
 
